@@ -163,19 +163,132 @@ print("*******************************************")
 print("*******************************************")
 
 
-while True:
-    try:
-        age = int(input('What is your age?'))
-        10 / age
-    except ValueError:
-        print('Please enter a number')
-    except ValueError:
-        print('!!!')
-    except ZeroDivisionError:
-        print('Please enter age higher than 0')
-    else:
-        print('Thank You!')
-        break
+# while True:
+#     try:
+#         age = int(input('What is your age?'))
+#         10 / age
+#     except ValueError:
+#         print('Please enter a number')
+#     except ValueError:
+#         print('!!!')
+#     except ZeroDivisionError:
+#         print('Please enter age higher than 0')
+#     else:
+#         print('Thank You!')
+#         break
 
+
+print("*******************************************")
+
+
+"""
+
+Let's create a simple sum function (It's already exists in Python but we'll just create our own). A simple sum function that takes num1 and num2 and returns num1 + num2.
+
+If we give it two strings like '1' and '2', we'll get 12. Because it adds the two strings together.Now if we give it a number and a string lik this (Line 270), we'll get this error: TypeError: unsupported operand type(s) for +: 'int' and 'str'. Now how can we handle this?
+
+Well, we can add a try block before and after our print function and wrap that (lines 269 and 271). Or we can build it directly into our sum function (Lines before 208 and after 208). So we can say try this (Line 213) and have a except that says if we get any type of error we'll return this (Line 215). Now if we run this (Line 274), it tells us something is wrong! But here is the problem by just doing except with no exceptions, as a programmer, I'm reading this and I don't really know what actually went wrong. Because it could be so many things. So always catch this errors based on a specific exception. This way you know what the error is and you can be more descriptive.
+
+ So here we can say except TypeError return this (Line 221).
+
+ A common pattern when doing error handling is to do something like this (Line 228): TypeError as err(err is a variable and we can name it whatever we want). So we're saying, hey if you catch TypeError, let us use err in our error message. So we can do like this. Now if we run this, we get the error (entire red error) printed. It actually gives us the error that we want. But what if we don't want to use this err. Well we can do that (Lines 232 to 236) and everythin works well.
+
+ Notice that when we print this (sum3(1, '2') on line 278), it tells us this: During handling of the above exception, another exception occurred. Well we try to handle something and we had an error whitin that error. So it means what we get out here (Line 229) is actually an error object. It's a built in exception in Python. So we can't add the err like this.
+
+ Instead we can return err by using f string like this (Line 243). Now if we run this, we get this: Please enter numbers: unsupported operand type(s) for +: 'int' and 'str'. So we actually get this error available to us. We can retutn just the err and it's like this (Line 250): unsupported operand type(s) for +: 'int' and 'str'.
+
+ We can also wrap these errors together like this ((TypeError, ZeroDivisionError) on line 256), and just return "ooops" for these errors. Now if we run division_numbers(1, '2'), it prints "ooops" and if we run division_numbers(1, 0), it prints "ooops" again. So we can handle multiple errors the same way. 
+
+ We can also do like this ((TypeError, ZeroDivisionError) as err on line 263) and just return err. Now if we run division_numbers1(1, '2'), it prints this: unsupported operand type(s) for /: 'int' and 'str'. And if we run division_numbers1(1, 0), it prints this: division by zero.
+
+"""
+
+
+def sum(num1, num2):
+    return num1 + num2
+
+
+def sum1(num1, num2):
+    try:
+        return num1 + num2
+    except:
+        return "Something is wrong!"
+
+
+def sum2(num1, num2):
+    try:
+        return num1 + num2
+    except TypeError:
+        return "Please enter numbers"
+
+
+def sum3(num1, num2):
+    try:
+        return num1 + num2
+    except TypeError as err:
+        return "Please enter numbers" + err
+
+
+def sum4(num1, num2):
+    try:
+        return num1 + num2
+    except TypeError as err:
+        return "Please enter numbers"
+
+
+def sum5(num1, num2):
+    try:
+        return num1 + num2
+    except TypeError as err:
+        return f"Please enter numbers: {err}"
+
+
+def sum6(num1, num2):
+    try:
+        return num1 + num2
+    except TypeError as err:
+        return f"{err}"
+
+
+def division_numbers(num1, num2):
+    try:
+        return num1 / num2
+    except (TypeError, ZeroDivisionError):
+        return "ooops"
+
+
+def division_numbers1(num1, num2):
+    try:
+        return num1 / num2
+    except (TypeError, ZeroDivisionError) as err:
+        return f"{err}"
+
+
+print(sum('1', '2'))
+# 12
+
+# print(sum(1, '2'))
+# TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+
+print(sum1(1, '2'))
+
+print(sum2(1, '2'))
+
+# print(sum3(1, '2'))
+
+print(sum4(1, '2'))
+
+print(sum5(1, '2'))
+
+print(sum6(1, '2'))
+
+print(division_numbers(1, '2'))
+
+print(division_numbers(1, 0))
+
+print(division_numbers1(1, '2'))
+
+print(division_numbers1(1, 0))
 
 print("*******************************************")
