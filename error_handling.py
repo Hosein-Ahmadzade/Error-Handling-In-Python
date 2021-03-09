@@ -291,4 +291,132 @@ print(division_numbers1(1, '2'))
 
 print(division_numbers1(1, 0))
 
+
+print("*******************************************")
+
+
+"""
+
+1) There's also another thing called finally. And finally runs at the end, after everything has been executed. If at the bottom example we give it a proper age, we get 'Thank you', because our try block succeeded, nothing has failed and we go to the else block and we say 'Thank you' and then we break out of the while loop. But finally says, hey no matter what, at the end of it all, I want you finally do something that is 'OK. I'm finally done.' here.
+
+If we give it 0 here and then run it, we get 'Please enter age higher than 0' because we had ZeroDivisionError here and our except block runs. Then our finally block runs 'OK.I'm finally done.' and then we go back to while loop again and it says 'What is your age?'. If we give it a string we get 'Please enter a number' because we had ValueError here and our except block runs. Then our finally block runs 'OK.I'm finally done.' and then we go back to while loop again and it says 'What is your age?'
+
+So finally runs regardless, at the end of everything.
+
+2) What happens if we have a continue statement here (Line 348) inside of our except ValueError and a break statement here (Line 351) inside of our except ZeroDivisionError and have a print fucncion that prints 'Can you hear me?' in our while loop at the end in line 357?
+
+Now if we give it 0, we get 'Please enter age higher than 0' and "OK. I'm finally done.", because we have a ZeroDivisionError and it prints first sentence then we break out (Line 351) of the while loop and the finally gets run and it prints the second sentence, but our last print (Line 357) never runs. Why? Because inside of ZeroDivisionError we broke out of the loop and this gets print that is surrounded by the loop never runs. 
+
+If we give it a string like 'hello', we get 'Please enter a number', "OK. I'm finally done." and 'What is your age?'. Here we have a ValueError and it prints first sentence then we continue. And remember that continue instead of break that doesn't break out of the loop, instead it comes back to the top (top of the while loop). And now it ask us our age again that is third sentence. And notice that finally runs regardless, at the end of everything (At the end of every time it came back to the loop). 
+
+And if we give it a proper age, we get 'Thank You!' and "OK. I'm finally done.". Because everything works so we have no exceptions. And now we will go inside of else block and it prints first sentence and then we break out of the loop So this last print function never runs. But finally runs regardless, and it print second sentence.  
+
+3) Now what happens if we didn't have this break statement here inside of else block (Line 373)?
+
+If we give it a proper number like 18, we get 'Thank You!', "OK. I'm finally done.", "Can you hear me?" and 'What is your age?'. Now the first and the second adn third sentences get printed because of what we said about above example (2), and after that, because we don't break out of the loop in else block, we get forth sentence, and now because we removed this break statement, it goes back to the loop and fifth sentence get printed that it asks our age.
+
+If we give it 0 or a string, we'll get the same results that we've got at second example (2).
+
+"""
+
+
+# 1)
+
+# while True:
+#     try:
+#         age = int(input('What is your age?'))
+#         10 / age
+#     except ValueError:
+#         print('Please enter a number')
+#     except ZeroDivisionError:
+#         print('Please enter age higher than 0')
+#     else:
+#         print('Thank You!')
+#         break
+#     finally:
+#         print("OK. I'm finally done.")
+
+
+# 2)
+
+# while True:
+#     try:
+#         age = int(input('What is your age?'))
+#         10 / age
+#     except ValueError:
+#         print('Please enter a number')
+#         continue
+#     except ZeroDivisionError:
+#         print('Please enter age higher than 0')
+#         break
+#     else:
+#         print('Thank You!')
+#         break
+#     finally:
+#         print("OK. I'm finally done.")
+#     print("Can you hear me?")
+
+
+# 3)
+
+# while True:
+#     try:
+#         age = int(input('What is your age?'))
+#         10 / age
+#     except ValueError:
+#         print('Please enter a number')
+#         continue
+#     except ZeroDivisionError:
+#         print('Please enter age higher than 0')
+#         break
+#     else:
+#         print('Thank You!')
+#     finally:
+#         print("OK. I'm finally done.")
+#     print("Can you hear me?")
+
+
+print("*******************************************")
+
+
+"""
+
+Sometimes errors and exceptions can be so severe that we do want to stop our programs from running. We do want to catch them like we did with the except block, but at the same time also stop whatever the program is doing. Maybe instead of print, we actually want to display those red errors on screen, that says something bad is happening, stop that. Well in that case we don't use except block. We can raise our our errors with raise keyword like bottom (Line 396). 
+
+Now if give it a proper age, we get this: raise ValueError('hey cut it out'). ValueError: hey cut it out. So we're able to throw our own errors.
+
+Note that this ValueError (Line 396) could be any type of error. For example it can be an Exception. And now if we run the program, we get this: raise ValueError('hey cut it out'). ValueError: hey cut it out.
+
+"""
+
+while True:
+    try:
+        age = int(input('What is your age?'))
+        10 / age
+        raise ValueError('hey cut it out')
+    except ZeroDivisionError:
+        print('Please enter age higher than 0')
+        break
+    else:
+        print('Thank You!')
+    finally:
+        print("OK. I'm finally done.")
+    print("Can you hear me?")
+
+
+while True:
+    try:
+        age = int(input('What is your age?'))
+        10 / age
+        raise Exception('hey cut it out')
+    except ZeroDivisionError:
+        print('Please enter age higher than 0')
+        break
+    else:
+        print('Thank You!')
+    finally:
+        print("OK. I'm finally done.")
+    print("Can you hear me?")
+
+
 print("*******************************************")
